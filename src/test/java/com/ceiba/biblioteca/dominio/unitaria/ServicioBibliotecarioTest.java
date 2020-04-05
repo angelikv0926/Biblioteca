@@ -196,7 +196,6 @@ public class ServicioBibliotecarioTest {
         Date fechaEntrega = servicioBibliotecario.calcularFechaEntrega(fechaSolicitud.getTime(), libro.getIsbn());
 
         //assert
-        assertEquals(fechaEntregaFinal.getTime(), fechaEntrega);
+        assertEquals(fechaEntregaFinal.getTime().toString(), fechaEntrega.toString());
     }
 }
-
