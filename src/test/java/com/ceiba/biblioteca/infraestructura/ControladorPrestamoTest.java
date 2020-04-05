@@ -40,4 +40,16 @@ public class ControladorPrestamoTest {
                 .andExpect(status().isOk());
 
     }
+
+    @Test
+    public void generarPrestamoLibroIsbn() throws Exception {
+        ComandoLibro comandoLibro = new LibroTestDataBuilder().buildComando();
+        mvc.perform(MockMvcRequestBuilders
+                .post("/prestamos/{isbn}", ISBN_LIBRO_PD1023)
+                .content(objectMapper.writeValueAsString(comandoLibro))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+    }
 }

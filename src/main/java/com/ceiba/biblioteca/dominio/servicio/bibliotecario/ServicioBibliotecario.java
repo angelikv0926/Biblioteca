@@ -54,9 +54,6 @@ public class ServicioBibliotecario {
         StringBuilder sb = new StringBuilder(isbn);
         //Aplicar reverso al isbn
         String isbnReverse = sb.reverse().toString();
-
-        System.out.println("ISBN Reverso : " + isbnReverse);
-
         //retorna verdadero si son iguales (palindromo) de lo contrario retorna false
         return isbn.equals(isbnReverse);
     }

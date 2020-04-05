@@ -21,7 +21,7 @@ public class ControladorPrestamo {
         this.manejadorGenerarPrestamo.ejecutar(isbn, nombreCliente);
     }
 
-    @GetMapping("/{isbn}")
+    @PostMapping("/{isbn}")
     public Prestamo obtenerLibroPrestadoPorIsbn(@PathVariable(name = "isbn") String isbn) {
         return this.manejadorObtenerPrestamo.ejecutar(isbn);
     }

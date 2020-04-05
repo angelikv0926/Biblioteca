@@ -4,7 +4,10 @@ import com.ceiba.biblioteca.dominio.Libro;
 import com.ceiba.biblioteca.dominio.repositorio.RepositorioLibro;
 import com.ceiba.biblioteca.dominio.repositorio.RepositorioPrestamo;
 import com.ceiba.biblioteca.dominio.servicio.bibliotecario.ServicioBibliotecario;
+import com.ceiba.biblioteca.infraestructura.configuracion.sistema.SistemaDePersistencia;
 import com.ceiba.biblioteca.testdatabuilder.LibroTestDataBuilder;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Calendar;
@@ -18,6 +21,25 @@ public class ServicioBibliotecarioTest {
 
     private static final String ISBN_LIBRO_12421 = "12421";
     private static final String ISBN_LIBRO_PD9999 = "PD9999";
+
+    private SistemaDePersistencia sistemaDePersistencia;
+
+    private RepositorioLibro repositorioLibro;
+    private RepositorioPrestamo repositorioPrestamo;
+
+    @Before
+    public void setUp() {
+        sistemaDePersistencia = new SistemaDePersistencia();
+        repositorioLibro = sistemaDePersistencia.obtenerRepositorioLibros();
+        repositorioPrestamo = sistemaDePersistencia.obtenerRepositorioPrestamos();
+
+        sistemaDePersistencia.iniciar();
+    }
+
+    @After
+    public void tearDown() {
+        sistemaDePersistencia.terminar();
+    }
 
     @Test
     public void libroYaEstaPrestadoTest() {
@@ -70,8 +92,6 @@ public class ServicioBibliotecarioTest {
 
         // act
         boolean validaPalindromo = servicioBibliotecario.validarPalindromo(libro.getIsbn());
-        System.out.println("ISBN: " + libro.getIsbn());
-        System.out.println("Valida Palindromo: " + validaPalindromo);
 
         //assert
         assertTrue(validaPalindromo);
@@ -90,8 +110,6 @@ public class ServicioBibliotecarioTest {
 
         // act
         boolean validaPalindromo = servicioBibliotecario.validarPalindromo(libro.getIsbn());
-        System.out.println("ISBN: " + libro.getIsbn());
-        System.out.println("Valida Palindromo: " + validaPalindromo);
 
         //assert
         assertFalse(validaPalindromo);
@@ -111,7 +129,7 @@ public class ServicioBibliotecarioTest {
 
         // act
         Date fechaEntrega = servicioBibliotecario.calcularFechaEntrega(fechaSolicitud, libro.getIsbn());
-        System.out.println("Fecha entrega calculada: " + fechaEntrega);
+
         //assert
         assertNotNull(fechaEntrega);
     }
@@ -130,7 +148,7 @@ public class ServicioBibliotecarioTest {
 
         // act
         Date fechaEntrega = servicioBibliotecario.calcularFechaEntrega(fechaSolicitud, libro.getIsbn());
-        System.out.println("Fecha entrega calculada: " + fechaEntrega);
+
         //assert
         assertNull(fechaEntrega);
     }
@@ -153,8 +171,7 @@ public class ServicioBibliotecarioTest {
 
         // act
         Date fechaEntrega = servicioBibliotecario.calcularFechaEntrega(fechaSolicitud.getTime(), libro.getIsbn());
-        System.out.println("Fecha entrega final: " + fechaEntregaFinal.getTime());
-        System.out.println("Fecha entrega calculada: " + fechaEntrega);
+
         //assert
         assertEquals(fechaEntregaFinal.getTime(), fechaEntrega);
     }
@@ -177,8 +194,7 @@ public class ServicioBibliotecarioTest {
 
         // act
         Date fechaEntrega = servicioBibliotecario.calcularFechaEntrega(fechaSolicitud.getTime(), libro.getIsbn());
-        System.out.println("Fecha entrega final: " + fechaEntregaFinal.getTime());
-        System.out.println("Fecha entrega calculada: " + fechaEntrega);
+
         //assert
         assertEquals(fechaEntregaFinal.getTime(), fechaEntrega);
     }

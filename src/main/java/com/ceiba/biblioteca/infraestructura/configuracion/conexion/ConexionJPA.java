@@ -7,11 +7,10 @@ import javax.persistence.Persistence;
 public class ConexionJPA {
 
     private static final String BIBLIOTECA = "biblioteca";
-
     private static EntityManagerFactory entityManagerFactory;
 
     public ConexionJPA() {
-        Persistence.createEntityManagerFactory(BIBLIOTECA);
+        entityManagerFactory = Persistence.createEntityManagerFactory(BIBLIOTECA);
     }
 
     public EntityManager createEntityManager() {
